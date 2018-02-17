@@ -1,4 +1,5 @@
 ﻿using System;
+
 namespace EasyReturnValues
 {
     public class Option<T>
@@ -17,7 +18,7 @@ namespace EasyReturnValues
         /// <summary>
         /// Initializes a new instance of the <see cref="T:EasyReturnValues.Option`1"/> class.
         /// </summary>
-        public Option()
+        private Option()
         {
             this.underlyingValue = default(T);
         }
@@ -51,7 +52,7 @@ namespace EasyReturnValues
         /// <returns><c>true</c>, if underyling value is some, <c>false</c> otherwise.</returns>
         public bool IsSome()
         {
-            return this.underlyingValue.Equals(default(T));
+            return !this.underlyingValue.Equals(default(T));
         }
 
         /// <summary>
