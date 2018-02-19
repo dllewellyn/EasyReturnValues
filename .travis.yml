@@ -5,5 +5,5 @@ install:
   - nuget restore EasyReturnValues.sln
   - nuget install NUnit.Runners -Version 2.6.4 -OutputDirectory testrunner
 script:
-  - xbuild /p:Configuration=Release EasyReturnValues.sln
+  - msbuild /p:Configuration=Release EasyReturnValues.sln
   - mono ./testrunner/NUnit.Runners.2.6.4/tools/nunit-console.exe ./EasyReturnValuesTest/bin/Release/EasyReturnValuesTest.dll
