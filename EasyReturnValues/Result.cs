@@ -14,23 +14,30 @@
         private T okValue;
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="T:EasyReturnValues.Result`2"/> class.
+        /// </summary>
+        /// <param name="okValue">Ok value.</param>
+        /// <param name="errorValue">Error value.</param>
+        private Result(T okValue, E errorValue)
+        {
+            this.errorValue = errorValue;
+            this.okValue = okValue;
+        }
+
+        /// <summary>
         /// Construct a new result
         /// </summary>
         /// <param name="value">Value.</param>
-        public Result(T value)
+        public Result(T value) : this(value, default(E))
         {
-            this.okValue = value;
-            this.errorValue = default(E);
         }
 
         /// <summary>
         /// Construct a result with an error
         /// </summary>
         /// <param name="value">Value.</param>
-        private Result(E value)
+        private Result(E value) : this(default(T), value)
         {
-            this.errorValue = value;
-            this.okValue = default(T);
         }
 
         /// <summary>
@@ -63,7 +70,14 @@
         /// <returns><c>true</c>, if error was ised, <c>false</c> otherwise.</returns>
         public bool IsErr() 
         {
-            return this.errorValue.Equals(default(E));
+            if (this.errorValue != null)
+            {
+                return !this.errorValue.Equals(
+                    default(E)
+                );
+            }
+
+            return false;
         }
 
         /// <summary>
@@ -72,7 +86,12 @@
         /// <returns><c>true</c>, if ok was ised, <c>false</c> otherwise.</returns>
         public bool IsOk()
         {
-            return this.okValue.Equals(default(E));
+            if (this.okValue != null)
+            {
+                return !this.okValue.Equals(default(T));
+            }
+
+            return false;
         }
 
         /// <summary>
